@@ -1,0 +1,84 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum DoorState
+{
+    Default,
+    OnEnemy,
+    OnKey
+}
+
+public class DoorController : MonoBehaviour
+{
+    public DoorState state;
+
+    Animator _doorAnimator;
+    Renderer renderer;
+
+    void Start()
+    {
+        _doorAnimator = GetComponent<Animator>();
+        renderer = gameObject.GetComponent<Renderer>();
+        switch (state)
+        {
+            case DoorState.OnEnemy:
+                {
+                    renderer.material.color = Color.red;
+                    break;
+                }
+            case DoorState.OnKey:
+                {
+                    renderer.material.color = Color.cyan;
+                    break;
+                }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void UpdateState(DoorState newState) 
+    {
+        state = newState;
+        switch (state)
+        {
+            case DoorState.Default: 
+                {
+                    renderer.material.color = Color.white;
+                    break;
+                }
+            case DoorState.OnEnemy:
+                {
+                    renderer.material.color = Color.red;
+                    _doorAnimator.SetBool("IsOpening", false);
+                    break;
+                }
+            case DoorState.OnKey:
+                {
+                    renderer.material.color = Color.cyan;
+                    break;
+                }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player") 
+        {
+            if(state == DoorState.Default)
+                _doorAnimator.SetBool("IsOpening", true);
+        }          
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            _doorAnimator.SetBool("IsOpening", false);
+        }
+    }
+}
