@@ -2423,7 +2423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0849e5b2093575438febe5b33b3b5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftFirePoint: {fileID: 3275547346577075473}
-  rightFirePoint: {fileID: 2009891142910008126}
+  firePoints:
+  - {fileID: 3275547346577075473}
+  - {fileID: 2009891142910008126}
   bulletPrefub: {fileID: 4495260487352868543, guid: c47af5c8e33478143adf04a182576ed5, type: 3}
   fireRate: 1
+  turretType: 1
