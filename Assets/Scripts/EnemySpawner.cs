@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Set in Inspector")]
     public GameObject enemyPrefab;
     public List<Transform> spawnPositions;
+    public int spawnDelay = 3;
     
     [NonSerialized]
     public List<GameObject> enemys;
@@ -15,7 +16,10 @@ public class EnemySpawner : MonoBehaviour
     public bool IsActive;
     [NonSerialized]
     public bool isTriggered;
-    
+    [NonSerialized]
+    public bool isEnemySpawn;
+
+
     private List<GameObject> enemyGO;
 
     public static bool IsPlayerIn;
@@ -48,17 +52,13 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (!isTriggered)
                 {
-                    foreach (var spawnPostion in spawnPositions)
-                    {
-                        var go = Instantiate(enemyPrefab, spawnPostion.position, Quaternion.identity);
-                        enemyGO.Add(go);
-                        enemys.Add(go);
-                    }
+                    Invoke("Spawn", spawnDelay);
+                    FightCountUI.instance.StartCount(spawnDelay);
                     isTriggered = true;
                     IsPlayerIn = true;
                 }
                 else
-                {
+                {   
                     foreach (var go in enemyGO)
                     {
                         Destroy(go);
@@ -69,4 +69,16 @@ public class EnemySpawner : MonoBehaviour
             }
         } 
     }
+
+    private void Spawn() 
+    {
+        foreach (var spawnPostion in spawnPositions)
+        {
+            var go = Instantiate(enemyPrefab, spawnPostion.position, Quaternion.identity);
+            enemyGO.Add(go);
+            enemys.Add(go);
+        }
+        isEnemySpawn = true;
+    }
+
 }

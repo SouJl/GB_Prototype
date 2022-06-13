@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class TurretBehavior : MonoBehaviour
     public float fireRate = 0.5f;
     public TurretType turretType;
     public float rotateSpeed = 1f;
+    public float missleLifeTime = 1f;
 
-    bool allowFire;
+    private bool allowFire;
+
 
     private void Start()
     {
@@ -29,7 +32,7 @@ public class TurretBehavior : MonoBehaviour
     {
         if (turretType == TurretType.none) return;
 
-        if(turretType == TurretType.circle) 
+        if (turretType == TurretType.circle)
         {
             transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
         }
@@ -43,7 +46,8 @@ public class TurretBehavior : MonoBehaviour
         allowFire = false;
         foreach(var firePoint in firePoints) 
         {
-            Instantiate(bulletPrefub, firePoint.position, firePoint.rotation);
+            var go = Instantiate(bulletPrefub, firePoint.position, firePoint.rotation);
+            Destroy(go, missleLifeTime);
         }
         yield return new WaitForSeconds(fireRate);
         allowFire = true;

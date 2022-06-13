@@ -5,14 +5,12 @@ using UnityEngine;
 public class TurretMissle : MonoBehaviour
 {
     public float speed = 10f;
-    public float lifeTime = 1f;
 
     Rigidbody _rigidbody;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        Destroy(gameObject, lifeTime);
     }
 
     void Start()

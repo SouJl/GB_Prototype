@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,4 +26,23 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void GameOver(bool isWon) 
+    {
+        if (isWon) 
+        {
+            NotificationUIManager.instance.SetNotification("Поздравляем! Вы дошли до конца уровня");
+            Invoke("Exit", 3);
+        }
+        else 
+        {
+
+        }
+    }
+
+    private void Exit()
+    {
+        Application.Quit();
+    }
+
 }

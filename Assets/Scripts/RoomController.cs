@@ -14,30 +14,39 @@ public class RoomController : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public List<GameObject> Doors;
-    public GameObject SpawnerGo;
+    public List<GameObject> SpawnerGo;
 
     [Header("Set Dynamically")]
     public BattleState _battleState;
 
-    private EnemySpawner _spawner;
+    private List<EnemySpawner> _spawners;
 
 
     void Start()
     {
         _battleState = BattleState.none;
-        if (SpawnerGo != null)
-            _spawner = (EnemySpawner)SpawnerGo.GetComponent(typeof(EnemySpawner));
+        _spawners = new List<EnemySpawner>();
+        if (SpawnerGo != null) 
+        {
+            foreach (var spawner in SpawnerGo) 
+            {
+                _spawners.Add((EnemySpawner)spawner.GetComponent(typeof(EnemySpawner)));
+            }
+        }
+           
     }
 
 
     void Update()
     {
         if (Doors == null) return;
-        if (_spawner == null) return;
+        if (_spawners == null) return;
 
-        if (_spawner.isTriggered)
+        var triggeredSpawner = _spawners.Where(s => s.isTriggered).FirstOrDefault();
+
+        if (triggeredSpawner != null && triggeredSpawner.isTriggered)
         {
-            _spawner.IsActive = false;
+            _spawners.ForEach(s => s.IsActive = false);
 
             switch (_battleState)
             {
@@ -49,12 +58,13 @@ public class RoomController : MonoBehaviour
                             if (doorScript.state == DoorState.Default)
                                 door.GetComponent<DoorController>().UpdateState(DoorState.OnEnemy);
                         }
-                        _battleState = BattleState.onFight;
+                        if(triggeredSpawner.isEnemySpawn)
+                            _battleState = BattleState.onFight;
                         break;
                     }
                 case BattleState.onFight:
                     {
-                        if (!_spawner.enemys.Any())
+                        if (!triggeredSpawner.enemys.Any())
                         {
                             foreach (var door in Doors)
                             {
@@ -72,10 +82,5 @@ public class RoomController : MonoBehaviour
                     }
             }
         }
-    }
-
-    private void ChangeDoorState()
-    {
-
     }
 }
