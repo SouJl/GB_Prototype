@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    [Header("Set in Inspector")]
     public float turnSpeed = 20f;
     public float speed = 1f;
+
+    [Header("Set Dynamically")]
+    public List<GameObject> keys;
 
     Vector3 _direction;
     Rigidbody _rigidbody;
@@ -13,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        keys = new List<GameObject>();
     }
 
     private void Update()
@@ -35,5 +40,20 @@ public class PlayerMovement : MonoBehaviour
 
             _rigidbody.position += _direction * speed * Time.deltaTime;
         }      
+    }
+
+    public void PickUpItem(GameObject item) 
+    {
+        if(item.tag == "Key") 
+        {
+            print("Player pickup Key");
+            keys.Add(item);
+            KeyUIManager.instance.AddKey(item.transform.GetChild(0).GetComponent<Renderer>().material.color);
+        }
+        if(item.tag == "Health") 
+        {
+            print("Player pickup Health");
+            HealtBarUIManager.instance.AddHealth();
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum DoorState
@@ -69,8 +70,27 @@ public class DoorController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") 
         {
-            if(state == DoorState.Default)
-                _doorAnimator.SetBool("IsOpening", true);
+            switch (state) 
+            {
+                case DoorState.Default: 
+                    {
+                        _doorAnimator.SetBool("IsOpening", true);
+                        break;
+                    }
+                case DoorState.OnKey: 
+                    {
+                        PlayerController player = (PlayerController)other.GetComponent(typeof(PlayerController));
+                        if (player.keys.Any()) 
+                        {
+                            UpdateState(DoorState.Default);
+                            player.keys.Clear();
+                            _doorAnimator.SetBool("IsOpening", true);
+                            KeyUIManager.instance.RemoveKey();
+                        }
+                            
+                        break;
+                    }
+            }
         }          
     }
 
