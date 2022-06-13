@@ -14,8 +14,9 @@ public class DoorController : MonoBehaviour
 {
     public DoorState state;
 
+
     Animator _doorAnimator;
-    Renderer renderer;
+    new Renderer renderer;
 
     void Start()
     {
@@ -42,12 +43,12 @@ public class DoorController : MonoBehaviour
 
     }
 
-    public void UpdateState(DoorState newState) 
+    public void UpdateState(DoorState newState)
     {
         state = newState;
         switch (state)
         {
-            case DoorState.Default: 
+            case DoorState.Default:
                 {
                     renderer.material.color = Color.white;
                     break;
@@ -86,6 +87,11 @@ public class DoorController : MonoBehaviour
                             player.keys.Clear();
                             _doorAnimator.SetBool("IsOpening", true);
                             KeyUIManager.instance.RemoveKey();
+                          
+                        }
+                        else
+                        {
+                            NotificationUIManager.instance.SetNotification("Закрыто. Нужен ключ!");
                         }
                             
                         break;
@@ -98,7 +104,19 @@ public class DoorController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            _doorAnimator.SetBool("IsOpening", false);
+            switch (state)
+            {
+                case DoorState.Default:
+                    {
+                        _doorAnimator.SetBool("IsOpening", false);
+                        break;
+                    }
+                case DoorState.OnKey: 
+                    {
+                        NotificationUIManager.instance.ResetNotifaction();
+                        break;
+                    }
+            }           
         }
     }
 }
