@@ -22,23 +22,25 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void GameOver(bool isWon)
+    {
+        if (isWon)
+        {
+            NotificationUIManager.instance.SetNotification("Поздравляем! Вы дошли до конца уровня");
+            Invoke("Exit", 3);
+        }
+        else
+        {
+            NotificationUIManager.instance.SetNotification("Вы проиграли!");
+            Invoke("Restart", 3);
+        }
+    }
+
     public void Restart() 
     {
         SceneManager.LoadScene(0);
     }
 
-    public void GameOver(bool isWon) 
-    {
-        if (isWon) 
-        {
-            NotificationUIManager.instance.SetNotification("Поздравляем! Вы дошли до конца уровня");
-            Invoke("Exit", 3);
-        }
-        else 
-        {
-
-        }
-    }
 
     private void Exit()
     {

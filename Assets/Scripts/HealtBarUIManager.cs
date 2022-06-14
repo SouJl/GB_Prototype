@@ -59,4 +59,6 @@ public class HealtBarUIManager : MonoBehaviour
         healthLevel++;
         healthCount++;
     }
+
+    public void MinusHealth() => healthCount--;
 }
