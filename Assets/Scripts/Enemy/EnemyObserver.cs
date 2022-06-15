@@ -22,7 +22,7 @@ public class EnemyObserver : MonoBehaviour
             else
             {
                 Destroy(other.gameObject);
-                GameManager.instance.GameOver(false);
+                Main.instance.GameOver(false);
             }
         }
     }

@@ -6,13 +6,13 @@ public class Enemy : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public float speed = 1f;
-    
-    NavMeshAgent enemyAI;
-    
-    PlayerController player;
+    public int score = 10;
 
     [NonSerialized]
     public Vector3 statrPos;
+
+    private NavMeshAgent enemyAI;
+    private PlayerController player;
 
     void Start()
     {
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
+            Main.instance.EnemyDefeat(this);
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

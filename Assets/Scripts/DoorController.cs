@@ -91,7 +91,7 @@ public class DoorController : MonoBehaviour
                         }
                         else
                         {
-                            NotificationUIManager.instance.SetNotification("Закрыто. Нужен ключ!");
+                            Main.instance.ThrowNotification("Закрыто. Нужен ключ!");
                         }
                             
                         break;

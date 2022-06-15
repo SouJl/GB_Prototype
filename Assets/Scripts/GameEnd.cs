@@ -8,7 +8,7 @@ public class GameEnd : MonoBehaviour
     {
         if(other.gameObject.tag == "Player") 
         {
-            GameManager.instance.GameOver(true);
+            Main.instance.GameOver(true);
         }
     }
 }

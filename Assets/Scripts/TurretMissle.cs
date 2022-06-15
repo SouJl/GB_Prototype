@@ -23,7 +23,7 @@ public class TurretMissle : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            GameManager.instance.Restart();
+            Main.instance.Restart();
         }
     }
 }
