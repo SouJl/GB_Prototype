@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
-        if (other.gameObject.tag == "Level") Destroy(gameObject);
+        if (other.gameObject.tag == "Level" || other.gameObject.tag == "Door") Destroy(gameObject);
     }
 
 }
