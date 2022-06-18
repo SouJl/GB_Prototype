@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Set Dynamically")]
     public List<GameObject> keys;
+    public float sensivity = 1f;
     public float offset;
 
     CharacterController _controller;
@@ -36,29 +37,32 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        /*if (_direction.magnitude >= 0.1f) 
+        if (_direction.magnitude >= 0.1f) 
         {
             Vector3 desiredRotation = Vector3.RotateTowards(transform.forward, _direction, turnSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(desiredRotation);     
-        } */
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 10f);
+        } 
+
+        Vector2 difference = Camera.main.WorldToScreenPoint(transform.position) - Input.mousePosition;
         difference.Normalize();
-        float rotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, rotation + offset, 0f);
+        float rotation = Mathf.Atan2(difference.x, difference.y) * Mathf.Rad2Deg - 180f;
+        transform.rotation = Quaternion.Euler(0f, rotation, 0f);
     }
 
     public void PickUpItem(GameObject item) 
     {
-        if(item.tag == "Key") 
+        if (Input.GetKeyDown(KeyCode.F)) 
         {
-            print("Player pickup Key");
-            keys.Add(item);
-            KeyUIManager.instance.AddKey(item.transform.GetChild(0).GetComponent<Renderer>().material.color);
-        }
-        if(item.tag == "Health") 
-        {
-            print("Player pickup Health");
-            HealtBarUIManager.instance.AddHealth();
-        }
+            if (item.tag == "Key")
+            {
+                keys.Add(item);
+                KeyUIManager.instance.AddKey(item.transform.GetChild(0).GetComponent<Renderer>().material.color);
+            }
+            if (item.tag == "Health")
+            {
+                HealthBarUIManager.instance.AddHealth();
+            }
+            Destroy(item);
+        }      
     }
 }

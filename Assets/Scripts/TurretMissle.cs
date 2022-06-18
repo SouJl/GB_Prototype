@@ -25,5 +25,6 @@ public class TurretMissle : MonoBehaviour
             Destroy(gameObject);
             Main.instance.Restart();
         }
+        if (other.gameObject.tag == "Level") Destroy(gameObject);
     }
 }

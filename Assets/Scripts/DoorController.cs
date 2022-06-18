@@ -113,7 +113,7 @@ public class DoorController : MonoBehaviour
                     }
                 case DoorState.OnKey: 
                     {
-                        NotificationUIManager.instance.ResetNotifaction();
+                        Main.instance.ThrowNotification("");
                         break;
                     }
             }           

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealtBarUIManager : MonoBehaviour
+public class HealthBarUIManager : MonoBehaviour
 {
-    public static HealtBarUIManager instance;
+    public static HealthBarUIManager instance;
 
     [Header("Set in Inspector")]
     public int healthCount;
     public int healthLevel;
-    public Sprite fullHelthSprite;
-    public Sprite emptyHealthSprite;
+    public Color heathFullCollor;
+    public Color heathEmptyCollor;
+    public Sprite helthFullSprite;
+    public Sprite healthEmptySprite;
     public Image[] healthsImage;
 
     private void Awake()
@@ -21,7 +23,6 @@ public class HealtBarUIManager : MonoBehaviour
             instance = this;
         }
     }
-
 
     void Update()
     {
@@ -36,11 +37,13 @@ public class HealtBarUIManager : MonoBehaviour
         {
             if(i > healthCount - 1) 
             {
-                healthsImage[i].sprite = emptyHealthSprite;
+                healthsImage[i].sprite = healthEmptySprite;
+                healthsImage[i].color = heathEmptyCollor;
             }
             else 
             {
-                healthsImage[i].sprite = fullHelthSprite;
+                healthsImage[i].sprite = helthFullSprite;
+                healthsImage[i].color = heathFullCollor;
             }
 
             if (i < healthLevel) 

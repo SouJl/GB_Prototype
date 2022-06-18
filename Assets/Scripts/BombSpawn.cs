@@ -10,7 +10,7 @@ public class BombSpawn : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             var go = Instantiate(bombPrefub, transform.position, transform.rotation);
             Destroy(go, lifeTime);

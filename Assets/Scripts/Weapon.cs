@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && allowFire) 
+        if (Input.GetKey(KeyCode.Mouse0) && allowFire) 
         {
             StartCoroutine(Fire());
         }

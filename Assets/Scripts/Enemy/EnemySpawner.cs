@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (IsActive) 
         {
-            if (other.gameObject.name == "Player")
+            if (other.gameObject.tag == "Player")
             {
                 if (!isTriggered)
                 {

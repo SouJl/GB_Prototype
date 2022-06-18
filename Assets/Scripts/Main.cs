@@ -1,14 +1,21 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Main : MonoBehaviour
 {
     public static Main instance;
-    
+
     [Header("Set in Inspector")]
+    public GameObject playerPrefab;
+    public Transform playerStartPosition;
     public TextMeshProUGUI score;
     public TextMeshProUGUI notification;
+
+    [NonSerialized]
+    public Transform playerPosition;
+    //[Header("Set Dynamicaly")]
 
     private int _score = 0;
     private string _notificationMessage;
@@ -19,6 +26,11 @@ public class Main : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        }
+        if (playerPrefab != null && playerStartPosition != null)
+        {
+            var go = Instantiate(playerPrefab, playerStartPosition.position, Quaternion.identity);
+            playerPosition = go.transform;
         }
     }
 
@@ -32,7 +44,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void EnemyDefeat(Enemy e) 

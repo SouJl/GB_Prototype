@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Key
   - Health
+  - Level
   layers:
   - Default
   - TransparentFX
