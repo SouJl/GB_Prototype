@@ -12,8 +12,12 @@ public class BombSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var go = Instantiate(bombPrefub, transform.position, transform.rotation);
-            Destroy(go, lifeTime);
+            if(BombBarUIManager.instance.bombCount > 0) 
+            {
+                var go = Instantiate(bombPrefub, transform.position, transform.rotation);
+                Destroy(go, lifeTime);
+                BombBarUIManager.instance.RemoveBomb();
+            }
         }
     }
 }
