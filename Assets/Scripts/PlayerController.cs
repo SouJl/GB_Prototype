@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Set Dynamically")]
     public List<GameObject> keys;
-    public float sensivity = 1f;
     public float offset;
 
     CharacterController _controller;
@@ -37,11 +36,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (_direction.magnitude >= 0.1f) 
+       /* if (_direction.magnitude >= 0.1f) 
         {
             Vector3 desiredRotation = Vector3.RotateTowards(transform.forward, _direction, turnSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(desiredRotation);     
-        } 
+        } */
 
         Vector2 difference = Camera.main.WorldToScreenPoint(transform.position) - Input.mousePosition;
         difference.Normalize();

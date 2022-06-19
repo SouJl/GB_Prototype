@@ -32,6 +32,8 @@ public class Main : MonoBehaviour
             var go = Instantiate(playerPrefab, playerStartPosition.position, Quaternion.identity);
             playerPosition = go.transform;
         }
+
+        //Cursor.visible = false;
     }
 
     private void Start()
