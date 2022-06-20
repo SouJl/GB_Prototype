@@ -10,6 +10,7 @@ TagManager:
   - Health
   - Level
   - Door
+  - Bomb
   layers:
   - Default
   - TransparentFX

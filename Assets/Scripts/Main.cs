@@ -49,7 +49,7 @@ public class Main : MonoBehaviour
         
     }
 
-    public void EnemyDefeat(Enemy e) 
+    public void EnemyDefeat(BaseEnemy e) 
     {
         _score += e.score;
         UpdateGUI();

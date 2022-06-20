@@ -8,7 +8,8 @@ public class BombController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            var p = other.gameObject.GetComponent<BaseEnemy>();
+            p.OnHitBomb(gameObject);
             Destroy(gameObject);
         }
     }

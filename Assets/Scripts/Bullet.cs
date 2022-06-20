@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
     public float lifeTime = 3f;
+    public float damage = 5f;
 
     Rigidbody _rigidbody;
 
@@ -22,12 +23,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemy") 
-        {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
+
         if (other.gameObject.tag == "Level" || other.gameObject.tag == "Door") Destroy(gameObject);
+        
+        if (other.gameObject.tag == "Enemy") 
+        {
+            var p = other.gameObject.GetComponent<BaseEnemy>();
+            p.OnHit(gameObject);
+        }
+      
     }
 
 }
