@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         _direction.z = Input.GetAxisRaw("Vertical");
         _direction.Normalize();
 
-        gravity -= 9.81f * Time.deltaTime;
+        gravity -= 9.8f * Time.deltaTime;
         _controller.Move(new Vector3(_direction.x * speed * Time.deltaTime, gravity, _direction.z * speed * Time.deltaTime));
         if (_controller.isGrounded) gravity = 0;
     }

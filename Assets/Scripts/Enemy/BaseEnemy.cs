@@ -59,8 +59,8 @@ public class BaseEnemy : MonoBehaviour
         if (collideGo.tag == "Bomb")
         {
             Main.instance.EnemyDefeat(this);
+           // enemyAI.isStopped = true;
             Destroy(gameObject);
-            Destroy(collideGo);
         }
     }
 

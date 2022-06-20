@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class BombController : MonoBehaviour
 {
+    public bool IsDetonate = false;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Enemy")
         {
             var p = other.gameObject.GetComponent<BaseEnemy>();
             p.OnHitBomb(gameObject);
-            Destroy(gameObject);
+            IsDetonate = true;
         }
     }
 }

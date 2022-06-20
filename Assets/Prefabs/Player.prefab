@@ -251,10 +251,10 @@ CharacterController:
   m_Height: 1.4
   m_Radius: 0.4
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Center: {x: 0, y: 0.72, z: 0}
 --- !u!65 &7954204475578414227
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,7 +267,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.7, y: 1.4, z: 0.8}
-  m_Center: {x: 0, y: 0.7, z: 0.05}
+  m_Center: {x: 0, y: 0.72, z: 0.05}
 --- !u!114 &7954204475578414231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +283,6 @@ MonoBehaviour:
   turnSpeed: 20
   speed: 6
   keys: []
-  sensivity: 1
   offset: 0
 --- !u!114 &7954204474710600153
 MonoBehaviour:
