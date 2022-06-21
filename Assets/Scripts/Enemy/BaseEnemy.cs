@@ -20,6 +20,12 @@ public class BaseEnemy : MonoBehaviour
 
     [NonSerialized]
     public NavMeshAgent enemyAI;
+ /*   [NonSerialized]
+    public bool IsOnFight;*/
+
+    protected Rigidbody _rigidBody;
+
+    private bool _isAllowMove;
 
     private void Awake()
     {
@@ -32,12 +38,17 @@ public class BaseEnemy : MonoBehaviour
         
         enemyAI = GetComponent<NavMeshAgent>();
         enemyAI.speed = speed;
+
+        _rigidBody = GetComponent<Rigidbody>();
+
+        _isAllowMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveUpdate();
+        if (_isAllowMove)
+            MoveUpdate();
 
         if (showingDamage && Time.time > damageDoneTime)
         {
@@ -59,9 +70,27 @@ public class BaseEnemy : MonoBehaviour
         if (collideGo.tag == "Bomb")
         {
             Main.instance.EnemyDefeat(this);
-           // enemyAI.isStopped = true;
             Destroy(gameObject);
         }
+    }
+
+    public void ApplyPhisics() 
+    {
+        if(_rigidBody != null) 
+        {
+            ShowDamage();
+            StartCoroutine(WaitForPhisicsApply());
+        }
+    }
+
+    IEnumerator WaitForPhisicsApply() 
+    {
+        enemyAI.enabled = false;
+        _isAllowMove = false;
+        yield return new WaitForSeconds(0.8f);
+        _rigidBody.Sleep();
+        _isAllowMove = true;
+        enemyAI.enabled = true;
     }
 
     public void OnHit(GameObject collideGo)
@@ -71,6 +100,7 @@ public class BaseEnemy : MonoBehaviour
             ShowDamage();
             var p = collideGo.GetComponent<Bullet>();
             health -= p.damage;
+            Main.instance.SetValueInHealthBar((int)health);
             if (health <= 0)
             {
                 Main.instance.EnemyDefeat(this);

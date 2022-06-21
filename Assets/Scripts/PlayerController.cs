@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,13 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> keys;
     public float offset;
 
+    [NonSerialized]
+    public bool IsForceAdded = false;
+
     CharacterController _controller;
     Vector3 _direction;
     float gravity;
+    Vector3 impact = Vector3.zero;
 
     private void Awake()
     {
@@ -31,6 +36,11 @@ public class PlayerController : MonoBehaviour
         gravity -= 9.8f * Time.deltaTime;
         _controller.Move(new Vector3(_direction.x * speed * Time.deltaTime, gravity, _direction.z * speed * Time.deltaTime));
         if (_controller.isGrounded) gravity = 0;
+
+        if (impact.magnitude > 0.2) _controller.Move(impact * Time.deltaTime);
+        else IsForceAdded = false;
+        impact = Vector3.Lerp(impact, Vector3.zero, 10 * Time.deltaTime);
+
     }
 
     void FixedUpdate()
@@ -46,6 +56,14 @@ public class PlayerController : MonoBehaviour
         difference.Normalize();
         float rotation = Mathf.Atan2(difference.x, difference.y) * Mathf.Rad2Deg - 180f;
         transform.rotation = Quaternion.Euler(0f, rotation, 0f);
+    }
+
+    public void AddImpact(Vector3 dir, float force) 
+    {
+        dir.Normalize();
+        if (dir.y < 0) dir.y = -dir.y; 
+        impact += dir.normalized * force;
+        IsForceAdded = true;
     }
 
     public void PickUpItem(GameObject item) 

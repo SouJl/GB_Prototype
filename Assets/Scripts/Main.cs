@@ -12,6 +12,8 @@ public class Main : MonoBehaviour
     public Transform playerStartPosition;
     public TextMeshProUGUI score;
     public TextMeshProUGUI notification;
+    public TextMeshProUGUI bossName;
+    public SliderHealthBarUI enemyHealthBar;
 
     [NonSerialized]
     public Transform playerPosition;
@@ -19,7 +21,7 @@ public class Main : MonoBehaviour
 
     private int _score = 0;
     private string _notificationMessage;
-
+   
 
     void Awake()
     {
@@ -38,6 +40,8 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
+        bossName.text = "";
+
         _notificationMessage = "";
         _score = 0;
         UpdateGUI();
@@ -46,12 +50,43 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        while (true) 
+        { }
+    }
+
+    private bool _isBossDefeat = false;
+
+    public bool IsBossDefeat
+    {
+        get => _isBossDefeat;
+        set 
+        {
+            if (value)
+                bossName.text = "";
+
+            _isBossDefeat = value;
+        }
+    }
+
+    public void InitSliderHealthBar(int health) 
+    {
+        enemyHealthBar.gameObject.SetActive(true);
+        enemyHealthBar.SetMaxHealth(health);
+    }
+
+    public void SetValueInHealthBar(int health) 
+    {
+        if (enemyHealthBar.gameObject.activeSelf) 
+        {
+            enemyHealthBar.SetHealth(health);
+            if (health <= 0) enemyHealthBar.gameObject.SetActive(false);
+        }
     }
 
     public void EnemyDefeat(BaseEnemy e) 
     {
         _score += e.score;
+        if (e.gameObject.tag == "Boss") IsBossDefeat = true;
         UpdateGUI();
     }
 
@@ -65,7 +100,7 @@ public class Main : MonoBehaviour
     {
         if (isWon)
         {
-            _notificationMessage = "Поздравляем! Вы дошли до конца уровня";
+            _notificationMessage = "Поздравляю! Уровень пройден!";
             Invoke("Exit", 3);
         }
         else

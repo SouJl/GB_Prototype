@@ -22,8 +22,16 @@ public class TurretMissle : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            if (HealthBarUIManager.instance.healthCount > 0)
+            {
+                HealthBarUIManager.instance.MinusHealth();
+            }
+            else
+            {
+                Destroy(other.gameObject);
+                Main.instance.GameOver(false);
+            }
             Destroy(gameObject);
-            Main.instance.Restart();
         }
         if (other.gameObject.tag == "Level") Destroy(gameObject);
     }

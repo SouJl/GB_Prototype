@@ -9,13 +9,16 @@ public class HealthBarUIManager : MonoBehaviour
 
     [Header("Set in Inspector")]
     public int healthCount;
-    public int healthLevel;
+
     public Color heathFullCollor;
     public Color heathEmptyCollor;
     public Sprite helthFullSprite;
     public Sprite healthEmptySprite;
     public Image[] healthsImage;
 
+    private int maxHealth;
+    private int healthLevel;
+    
     private void Awake()
     {
         if(instance == null)
@@ -24,14 +27,22 @@ public class HealthBarUIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        healthLevel = healthCount;
+        maxHealth = healthsImage.Length;
+    }
+
     void Update()
     {
         if (healthsImage == null) return;
 
         if (healthCount > healthLevel) 
         {
-            healthCount = healthLevel;
+            healthLevel = healthCount;
         }
+
+        if (healthLevel > maxHealth) healthLevel = maxHealth;
 
         for (int i = 0; i < healthsImage.Length; i++)
         {
@@ -59,7 +70,7 @@ public class HealthBarUIManager : MonoBehaviour
 
     public void AddHealth() 
     {
-        healthLevel++;
+       // healthLevel++;
         healthCount++;
     }
 

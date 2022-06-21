@@ -23,8 +23,8 @@ public class RaycastPointOfView : MonoBehaviour
         RaycastHit hit;
         Color drawColor = color;
         var startPos = transform.position;
-        var rayCast = Physics.Raycast(startPos, transform.forward, out hit, 1000, _mask);
-        if (rayCast)
+        isTargetFind = false;
+        if (Physics.Raycast(startPos, transform.forward, out hit, Mathf.Infinity, _mask))
         {
             if (hit.collider.gameObject.CompareTag("Player"))
             {
@@ -32,16 +32,8 @@ public class RaycastPointOfView : MonoBehaviour
                 playerPos = hit.point;
                 isTargetFind = true;
             }
-            else 
-            {
-                isTargetFind = false;
-            }
         }
-        else 
-        {
-            drawColor = color;
-        }
-        Debug.DrawRay(startPos, transform.forward * 10, drawColor);
+        Debug.DrawRay(startPos, transform.forward * 20, drawColor);
     }
 
     public Vector3 GetTargetPosition() => playerPos;

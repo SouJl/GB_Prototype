@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.tag == "Level" || other.gameObject.tag == "Door") Destroy(gameObject);
         
-        if (other.gameObject.tag == "Enemy") 
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss") 
         {
             var p = other.gameObject.GetComponent<BaseEnemy>();
             p.OnHit(gameObject);

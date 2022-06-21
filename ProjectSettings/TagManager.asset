@@ -11,6 +11,7 @@ TagManager:
   - Level
   - Door
   - Bomb
+  - Boss
   layers:
   - Default
   - TransparentFX
