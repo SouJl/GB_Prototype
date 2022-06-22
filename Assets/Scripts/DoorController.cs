@@ -13,15 +13,15 @@ public enum DoorState
 public class DoorController : MonoBehaviour
 {
     public DoorState state;
-
+    public GameObject AnimatorHandler;
 
     Animator _doorAnimator;
     new Renderer renderer;
 
     void Start()
     {
-        _doorAnimator = GetComponent<Animator>();
-        renderer = gameObject.GetComponent<Renderer>();
+        _doorAnimator = AnimatorHandler.GetComponent<Animator>();
+        renderer = AnimatorHandler.GetComponent<Renderer>();
         switch (state)
         {
             case DoorState.OnEnemy:

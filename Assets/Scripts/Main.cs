@@ -35,6 +35,8 @@ public class Main : MonoBehaviour
             playerPosition = go.transform;
         }
 
+        SoundManager.instance.Play("Theme");
+
         //Cursor.visible = false;
     }
 
@@ -50,8 +52,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (true) 
-        { }
+
     }
 
     private bool _isBossDefeat = false;

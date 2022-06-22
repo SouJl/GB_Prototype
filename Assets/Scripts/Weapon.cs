@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && allowFire) 
         {
+            SoundManager.instance.Play("Bullet");
             StartCoroutine(Fire());
         }
     }

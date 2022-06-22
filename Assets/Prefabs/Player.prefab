@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 7954204475578414227}
   - component: {fileID: 7954204475578414231}
   - component: {fileID: 7954204474710600153}
-  - component: {fileID: 7954204475578414230}
   - component: {fileID: 56115988869842902}
   m_Layer: 8
   m_Name: Player
@@ -298,15 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 467909924999178290}
   bulletPrefub: {fileID: 294138830345439825, guid: c5dbd88958fdd244fb6af6fdadf63ad6, type: 3}
-  fireRate: 0.3
---- !u!81 &7954204475578414230
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954204475578414313}
-  m_Enabled: 1
+  fireRate: 0.2
 --- !u!114 &56115988869842902
 MonoBehaviour:
   m_ObjectHideFlags: 0
