@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 442469624169341551, guid: 4ea93234a023d834bbb81ff47efd4ab0, type: 3}
-  range: 8
+  minRange: 5
+  maxRange: 15
 --- !u!1 &1010292218670511256
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,7 +2339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fd0ad2e1ee37d4ea4febc064dcb072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 250
+  health: 400
   speed: 13
   score: 150
   showDamageDuration: 0.1
@@ -2358,8 +2359,8 @@ MonoBehaviour:
   - {fileID: 1010292219239615112}
   - {fileID: 1010292220193529923}
   maxSpeed: 20
-  speedRot: 60
-  grenadeDropChance: 70
+  speedRot: 55
+  grenadeDropChance: 80
 --- !u!1 &1010292219188178555
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,7 +3152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 442469624169341551, guid: 4ea93234a023d834bbb81ff47efd4ab0, type: 3}
-  range: 8
+  minRange: 5
+  maxRange: 15
 --- !u!1 &1010292219500791318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3249,7 +3251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 442469624169341551, guid: 4ea93234a023d834bbb81ff47efd4ab0, type: 3}
-  range: 8
+  minRange: 5
+  maxRange: 15
 --- !u!1 &1010292219697649869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4857,7 +4860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 442469624169341551, guid: 4ea93234a023d834bbb81ff47efd4ab0, type: 3}
-  range: 8
+  minRange: 5
+  maxRange: 15
 --- !u!1 &1010292220225574714
 GameObject:
   m_ObjectHideFlags: 0

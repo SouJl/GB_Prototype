@@ -35,8 +35,6 @@ public class Main : MonoBehaviour
             playerPosition = go.transform;
         }
 
-        SoundManager.instance.Play("Theme");
-
         //Cursor.visible = false;
     }
 
@@ -47,6 +45,8 @@ public class Main : MonoBehaviour
         _notificationMessage = "";
         _score = 0;
         UpdateGUI();
+
+        SoundManager.instance.Play("Theme");
     }
 
     // Update is called once per frame

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,13 @@ public class DoorController : MonoBehaviour
     public DoorState state;
     public GameObject AnimatorHandler;
 
-    Animator _doorAnimator;
+    [NonSerialized]
+    public Animator doorAnimator;
     new Renderer renderer;
 
     void Start()
     {
-        _doorAnimator = AnimatorHandler.GetComponent<Animator>();
+        doorAnimator = AnimatorHandler.GetComponent<Animator>();
         renderer = AnimatorHandler.GetComponent<Renderer>();
         switch (state)
         {
@@ -56,7 +58,7 @@ public class DoorController : MonoBehaviour
             case DoorState.OnEnemy:
                 {
                     renderer.material.color = Color.red;
-                    _doorAnimator.SetBool("IsOpening", false);
+                    doorAnimator.SetBool("IsOpening", false);
                     break;
                 }
             case DoorState.OnKey:
@@ -75,7 +77,7 @@ public class DoorController : MonoBehaviour
             {
                 case DoorState.Default: 
                     {
-                        _doorAnimator.SetBool("IsOpening", true);
+                        doorAnimator.SetBool("IsOpening", true);
                         break;
                     }
                 case DoorState.OnKey: 
@@ -85,7 +87,7 @@ public class DoorController : MonoBehaviour
                         {
                             UpdateState(DoorState.Default);
                             player.keys.Clear();
-                            _doorAnimator.SetBool("IsOpening", true);
+                            doorAnimator.SetBool("IsOpening", true);
                             KeyUIManager.instance.RemoveKey();
                           
                         }
@@ -108,7 +110,7 @@ public class DoorController : MonoBehaviour
             {
                 case DoorState.Default:
                     {
-                        _doorAnimator.SetBool("IsOpening", false);
+                        doorAnimator.SetBool("IsOpening", false);
                         break;
                     }
                 case DoorState.OnKey: 

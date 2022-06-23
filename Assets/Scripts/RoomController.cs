@@ -55,8 +55,12 @@ public class RoomController : MonoBehaviour
                         foreach (var door in Doors)
                         {
                             DoorController doorScript = (DoorController)door.GetComponent(typeof(DoorController));
-                            if (doorScript.state == DoorState.Default)
-                                door.GetComponent<DoorController>().UpdateState(DoorState.OnEnemy);
+                            if (doorScript.state == DoorState.Default) 
+                            {
+                                doorScript.UpdateState(DoorState.OnEnemy);
+                                doorScript.doorAnimator.SetBool("IsOpening", false);
+                            }
+                                
                         }
                         if(triggeredSpawner.isEnemySpawn)
                             _battleState = BattleState.onFight;
@@ -70,7 +74,7 @@ public class RoomController : MonoBehaviour
                             {
                                 DoorController doorScript = (DoorController)door.GetComponent(typeof(DoorController));
                                 if (doorScript.state == DoorState.OnEnemy)
-                                    door.GetComponent<DoorController>().UpdateState(DoorState.Default);
+                                    doorScript.UpdateState(DoorState.Default);
                             }
                             _battleState = BattleState.fightEnd;
                         }
