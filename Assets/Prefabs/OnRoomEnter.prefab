@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc5a09b4f3d23418124ad1f315f87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5075534488604402034, guid: 7647213430b26ed44b7afdb834d860b8,
-    type: 3}
-  player: {fileID: 7954204475578414313, guid: df248d9138cf12b4abdaf04f3326df2e, type: 3}
+  enemyPrefab: {fileID: 5075534488604402034, guid: 7647213430b26ed44b7afdb834d860b8, type: 3}
   spawnPositions: []
+  spawnDelay: 3
+  onSpawnEffect: {fileID: 238620663024787329, guid: 9ed05fec0934fd84f9e60392014647f2, type: 3}
+  IsActiveTimer: 1

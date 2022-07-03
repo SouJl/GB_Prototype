@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public List<Transform> spawnPositions;
     public int spawnDelay = 3;
     public GameObject onSpawnEffect;
+    public bool IsActiveTimer = true;
 
     [NonSerialized]
     public List<GameObject> enemys;
@@ -56,7 +57,8 @@ public class EnemySpawner : MonoBehaviour
                 if (!isTriggered)
                 {
                     Invoke("Spawn", spawnDelay);
-                    FightCountUI.instance.StartCount(spawnDelay);
+                    if(IsActiveTimer)
+                        FightCountUI.instance.StartCount(spawnDelay);
                     SpawnEffect();
                     isTriggered = true;
                     IsPlayerIn = true;

@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
             ContactPoint contact = collision.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, contact.normal);
             Vector3 pos = contact.point;
-            Instantiate(onHitEffect, pos, rot);
+            var effect = Instantiate(onHitEffect, pos, rot);
             Destroy(gameObject);
         }
 
