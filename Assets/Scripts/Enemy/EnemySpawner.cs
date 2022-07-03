@@ -9,7 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public List<Transform> spawnPositions;
     public int spawnDelay = 3;
-    
+    public GameObject onSpawnEffect;
+
     [NonSerialized]
     public List<GameObject> enemys;
     [NonSerialized]
@@ -37,9 +38,9 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemys == null) return;
 
-        if (enemys.Any()) 
+        if (enemys.Any())
         {
-            foreach(var enemy in enemys.ToList()) 
+            foreach (var enemy in enemys.ToList())
             {
                 if (enemy == null) enemys.Remove(enemy);
             }
@@ -48,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (IsActive) 
+        if (IsActive)
         {
             if (other.gameObject.tag == "Player")
             {
@@ -56,11 +57,12 @@ public class EnemySpawner : MonoBehaviour
                 {
                     Invoke("Spawn", spawnDelay);
                     FightCountUI.instance.StartCount(spawnDelay);
+                    SpawnEffect();
                     isTriggered = true;
                     IsPlayerIn = true;
                 }
                 else
-                {   
+                {
                     foreach (var go in enemyGO)
                     {
                         Destroy(go);
@@ -69,10 +71,21 @@ public class EnemySpawner : MonoBehaviour
                     IsPlayerIn = false;
                 }
             }
-        } 
+        }
     }
 
-    private void Spawn() 
+    private void SpawnEffect() 
+    {
+        foreach (var spawnPostion in spawnPositions)
+        {
+            var spwnEffect = Instantiate(onSpawnEffect, spawnPostion.position + new Vector3(0, 0.01f, 0), Quaternion.identity);
+            /*var effectlist = spwnEffect.gameObject.GetComponentsInChildren<ParticleSystem>();
+            foreach (var effect in effectlist) effect.Play();*/
+            Destroy(spwnEffect, spawnDelay);
+        }
+    }
+
+    private void Spawn()
     {
         foreach (var spawnPostion in spawnPositions)
         {

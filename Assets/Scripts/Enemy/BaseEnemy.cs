@@ -11,6 +11,7 @@ public class BaseEnemy : MonoBehaviour
     public float speed = 5f;
     public int score = 10;
     public float showDamageDuration = 0.1f;
+    public ParticleSystem deathParticalEffect;
 
     [Header("Set Dynamically: BaseEnemy")]
     public Color[] originalColors;
@@ -103,6 +104,7 @@ public class BaseEnemy : MonoBehaviour
             Main.instance.SetValueInHealthBar((int)health);
             if (health <= 0)
             {
+                Instantiate(deathParticalEffect, transform.position, Quaternion.identity);
                 Main.instance.EnemyDefeat(this);
                 Destroy(gameObject);
             }
@@ -111,8 +113,11 @@ public class BaseEnemy : MonoBehaviour
     }
 
 
+
+
     void ShowDamage()
     {
+        SoundManager.instance.Play("EnemyHit");
         foreach (var m in materials)
         {
             m.color = Color.white;

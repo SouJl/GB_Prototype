@@ -57,3 +57,27 @@ MonoBehaviour:
     pitch: 0.6
     loop: 0
     source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: 92bbd44824d87c74f95bebb804695a31, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Door
+    clip: {fileID: 8300000, guid: a4d351943dccc47478ab2cda6a845a91, type: 3}
+    volume: 1
+    pitch: 1.4
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: ad8e7dae16ffc194b81f977f146b84fa, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerHit
+    clip: {fileID: 8300000, guid: 69f4ca37b145e994abfc8526e9502041, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

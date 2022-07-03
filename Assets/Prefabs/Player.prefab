@@ -311,4 +311,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefub: {fileID: 6707488090433165627, guid: 15c9cb4752c4b6147bd3f6737e4232ba, type: 3}
-  lifeTime: 5
+  lifeTime: 3

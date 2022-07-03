@@ -33,7 +33,7 @@ public class BombExplosion : MonoBehaviour
                 rb.AddExplosionForce(power, transform.position, radius);
                 
                 var bomb = rb.GetComponent<BombExplosion>();
-                if (bomb && Vector3.Distance(transform.position, rb.position) < radius/ 2f ) bomb.Detonate();
+                if (bomb && Vector3.Distance(rb.position, transform.position) < radius/ 2f ) bomb.Detonate();
             }
 
         }

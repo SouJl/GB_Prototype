@@ -94,10 +94,10 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294138830345439825}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.6
+  m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7407337804921536970
@@ -131,3 +131,4 @@ MonoBehaviour:
   speed: 15
   lifeTime: 1
   damage: 5
+  onHitEffect: {fileID: 5305491219694186010, guid: d56f146026a7c6c44810e556224c806c, type: 3}

@@ -18,10 +18,10 @@ public class HealthBarUIManager : MonoBehaviour
 
     private int maxHealth;
     private int healthLevel;
-    
+
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -37,7 +37,7 @@ public class HealthBarUIManager : MonoBehaviour
     {
         if (healthsImage == null) return;
 
-        if (healthCount > healthLevel) 
+        if (healthCount > healthLevel)
         {
             healthLevel = healthCount;
         }
@@ -46,33 +46,37 @@ public class HealthBarUIManager : MonoBehaviour
 
         for (int i = 0; i < healthsImage.Length; i++)
         {
-            if(i > healthCount - 1) 
+            if (i > healthCount - 1)
             {
                 healthsImage[i].sprite = healthEmptySprite;
                 healthsImage[i].color = heathEmptyCollor;
             }
-            else 
+            else
             {
                 healthsImage[i].sprite = helthFullSprite;
                 healthsImage[i].color = heathFullCollor;
             }
 
-            if (i < healthLevel) 
+            if (i < healthLevel)
             {
                 healthsImage[i].enabled = true;
             }
-            else 
+            else
             {
                 healthsImage[i].enabled = false;
             }
         }
     }
 
-    public void AddHealth() 
+    public void AddHealth()
     {
-       // healthLevel++;
+        // healthLevel++;
         healthCount++;
     }
 
-    public void MinusHealth() => healthCount--;
+    public void MinusHealth()
+    {
+        SoundManager.instance.Play("PlayerHit");
+        healthCount--;
+    }
 }

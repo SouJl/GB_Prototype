@@ -31,7 +31,6 @@ public class Grenade : MonoBehaviour
 
         if (IsGround()) 
         {
-            Debug.Log(boundCount);
             boundCount++;
         }
         

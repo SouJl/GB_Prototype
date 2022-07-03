@@ -58,6 +58,7 @@ public class DoorController : MonoBehaviour
             case DoorState.OnEnemy:
                 {
                     renderer.material.color = Color.red;
+                    SoundManager.instance.Play("Door");
                     doorAnimator.SetBool("IsOpening", false);
                     break;
                 }
@@ -77,6 +78,7 @@ public class DoorController : MonoBehaviour
             {
                 case DoorState.Default: 
                     {
+                        SoundManager.instance.Play("Door");
                         doorAnimator.SetBool("IsOpening", true);
                         break;
                     }
@@ -87,6 +89,7 @@ public class DoorController : MonoBehaviour
                         {
                             UpdateState(DoorState.Default);
                             player.keys.Clear();
+                            SoundManager.instance.Play("Door");
                             doorAnimator.SetBool("IsOpening", true);
                             KeyUIManager.instance.RemoveKey();
                           
@@ -110,6 +113,7 @@ public class DoorController : MonoBehaviour
             {
                 case DoorState.Default:
                     {
+                        SoundManager.instance.Play("Door");
                         doorAnimator.SetBool("IsOpening", false);
                         break;
                     }

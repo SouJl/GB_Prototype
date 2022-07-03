@@ -3,6 +3,13 @@ using UnityEngine;
 using TMPro;
 using System;
 
+[System.Serializable]
+public class SceneOrder
+{
+    public string CurrentScene;
+    public string NextScene;
+}
+
 public class Main : MonoBehaviour
 {
     public static Main instance;
@@ -15,13 +22,17 @@ public class Main : MonoBehaviour
     public TextMeshProUGUI bossName;
     public SliderHealthBarUI enemyHealthBar;
 
+    [Header("Set SceneOrder")]
+    public SceneOrder sceneOrder;
+
     [NonSerialized]
     public Transform playerPosition;
     //[Header("Set Dynamicaly")]
 
     private int _score = 0;
     private string _notificationMessage;
-   
+    private float _musicVolume = 0.5f;
+    private float _sfxVolume = 0.8f;
 
     void Awake()
     {
@@ -45,6 +56,7 @@ public class Main : MonoBehaviour
         _notificationMessage = "";
         _score = 0;
         UpdateGUI();
+        SetGameSettings();
 
         SoundManager.instance.Play("Theme");
     }
@@ -102,7 +114,7 @@ public class Main : MonoBehaviour
         if (isWon)
         {
             _notificationMessage = "Поздравляю! Уровень пройден!";
-            Invoke("Exit", 3);
+            Invoke("NextLevel", 3);
         }
         else
         {
@@ -114,7 +126,7 @@ public class Main : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(sceneOrder.CurrentScene);
     }
 
     private void UpdateGUI() 
@@ -123,9 +135,29 @@ public class Main : MonoBehaviour
         score.text = $"Score: {_score}";
     }
 
-    private void Exit()
+    private void NextLevel()
     {
-        Application.Quit();
+        SceneManager.LoadScene(sceneOrder.NextScene);
+    }
+
+    private void SetGameSettings() 
+    {
+        if (PlayerPrefs.HasKey("MusicVolume"))
+        {
+            _musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        }
+
+        if (PlayerPrefs.HasKey("SFXVolume"))
+        {
+            _sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
+        }
+
+        SoundManager.instance.SetVolume("Theme", _musicVolume);
+
+        SoundManager.instance.SetVolume("Bullet", _sfxVolume);
+        SoundManager.instance.SetVolume("Door", _sfxVolume);
+        SoundManager.instance.SetVolume("EnemyHit", _sfxVolume * 0.8f);
+        SoundManager.instance.SetVolume("PlayerHit", _sfxVolume);
     }
 
 }

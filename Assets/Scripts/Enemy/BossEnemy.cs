@@ -79,7 +79,29 @@ public class BossEnemy : BaseEnemy
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player") 
+        {
+            var p = collision.gameObject.GetComponent<PlayerController>();
+            if (!p.IsForceAdded)
+            {
+                _rigidBody.Sleep();
+                p.AddImpact(transform.forward, 30);
+                if (HealthBarUIManager.instance.healthCount > 0)
+                {
+                    HealthBarUIManager.instance.MinusHealth();
+                }
+                else
+                {
+                    Destroy(collision.gameObject);
+                    Main.instance.GameOver(false);
+                }
+            }
+        }
+    }
+
+    /*private void (Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -99,5 +121,5 @@ public class BossEnemy : BaseEnemy
                 }
             }
         }
-    }
+    }*/
 }

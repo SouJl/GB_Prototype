@@ -28,7 +28,8 @@ public class Weapon : MonoBehaviour
     IEnumerator Fire() 
     {
         allowFire = false;
-        Instantiate(bulletPrefub, firePoint.position, firePoint.rotation);
+        var go = Instantiate(bulletPrefub, firePoint.position, firePoint.rotation);
+        go.GetComponent<Bullet>().playerRotation = transform.rotation; 
         yield return new WaitForSeconds(fireRate);
         allowFire = true;
     }

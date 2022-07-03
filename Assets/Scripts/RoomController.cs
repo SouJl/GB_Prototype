@@ -58,6 +58,7 @@ public class RoomController : MonoBehaviour
                             if (doorScript.state == DoorState.Default) 
                             {
                                 doorScript.UpdateState(DoorState.OnEnemy);
+                                SoundManager.instance.Play("Door");
                                 doorScript.doorAnimator.SetBool("IsOpening", false);
                             }
                                 
