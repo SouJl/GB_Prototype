@@ -79,8 +79,6 @@ public class EnemySpawner : MonoBehaviour
         foreach (var spawnPostion in spawnPositions)
         {
             var spwnEffect = Instantiate(onSpawnEffect, spawnPostion.position + new Vector3(0, 0.01f, 0), Quaternion.identity);
-            /*var effectlist = spwnEffect.gameObject.GetComponentsInChildren<ParticleSystem>();
-            foreach (var effect in effectlist) effect.Play();*/
             Destroy(spwnEffect, spawnDelay);
         }
     }
