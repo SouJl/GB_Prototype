@@ -2,6 +2,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SceneOrder
@@ -27,12 +28,39 @@ public class Main : MonoBehaviour
 
     [NonSerialized]
     public Transform playerPosition;
-    //[Header("Set Dynamicaly")]
+
 
     private int _score = 0;
     private string _notificationMessage;
     private float _musicVolume = 0.5f;
     private float _sfxVolume = 0.8f;
+
+    private int _enemyCount = 0;
+
+    public int EnemyCount
+    {
+        get => _enemyCount;
+        set
+        {
+            if (value < 0) _enemyCount = 0;
+            else _enemyCount = value;
+        }
+    }
+
+    private bool _isBossDefeat = false;
+
+    public bool IsBossDefeat
+    {
+        get => _isBossDefeat;
+        set
+        {
+            if (value)
+                bossName.text = "";
+
+            _isBossDefeat = value;
+        }
+    }
+
 
     void Awake()
     {
@@ -61,49 +89,36 @@ public class Main : MonoBehaviour
         SoundManager.instance.Play("Theme");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
     }
 
-    private bool _isBossDefeat = false;
-
-    public bool IsBossDefeat
-    {
-        get => _isBossDefeat;
-        set 
-        {
-            if (value)
-                bossName.text = "";
-
-            _isBossDefeat = value;
-        }
-    }
-
-    public void InitSliderHealthBar(int health) 
+    public void InitSliderHealthBar(int health)
     {
         enemyHealthBar.gameObject.SetActive(true);
         enemyHealthBar.SetMaxHealth(health);
     }
 
-    public void SetValueInHealthBar(int health) 
+    public void SetValueInHealthBar(int health)
     {
-        if (enemyHealthBar.gameObject.activeSelf) 
+        if (enemyHealthBar.gameObject.activeSelf)
         {
             enemyHealthBar.SetHealth(health);
             if (health <= 0) enemyHealthBar.gameObject.SetActive(false);
         }
     }
 
-    public void EnemyDefeat(BaseEnemy e) 
+    public void EnemyDefeat(BaseEnemy e)
     {
         _score += e.score;
         if (e.gameObject.tag == "Boss") IsBossDefeat = true;
+        EnemyCount--;
         UpdateGUI();
     }
 
-    public void ThrowNotification(string message) 
+    public void ThrowNotification(string message)
     {
         _notificationMessage = message;
         UpdateGUI();
@@ -129,7 +144,7 @@ public class Main : MonoBehaviour
         SceneManager.LoadScene(sceneOrder.CurrentScene);
     }
 
-    private void UpdateGUI() 
+    private void UpdateGUI()
     {
         notification.text = _notificationMessage;
         score.text = $"Score: {_score}";
@@ -140,7 +155,7 @@ public class Main : MonoBehaviour
         SceneManager.LoadScene(sceneOrder.NextScene);
     }
 
-    private void SetGameSettings() 
+    private void SetGameSettings()
     {
         if (PlayerPrefs.HasKey("MusicVolume"))
         {

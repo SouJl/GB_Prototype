@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum BattleState
+public enum BattleState 
 {
     none,
     onFight,
@@ -19,18 +19,18 @@ public class RoomController : MonoBehaviour
     [Header("Set Dynamically")]
     public BattleState _battleState;
 
-    private List<EnemySpawner> _spawners;
+    private List<SpawnManager> _spawners;
 
 
     void Start()
     {
         _battleState = BattleState.none;
-        _spawners = new List<EnemySpawner>();
+        _spawners = new List<SpawnManager>();
         if (SpawnerGo != null) 
         {
             foreach (var spawner in SpawnerGo) 
             {
-                _spawners.Add((EnemySpawner)spawner.GetComponent(typeof(EnemySpawner)));
+                _spawners.Add((SpawnManager)spawner.GetComponent(typeof(SpawnManager)));
             }
         }
            
@@ -69,7 +69,7 @@ public class RoomController : MonoBehaviour
                     }
                 case BattleState.onFight:
                     {
-                        if (!triggeredSpawner.enemys.Any())
+                        if (Main.instance.EnemyCount == 0)
                         {
                             foreach (var door in Doors)
                             {

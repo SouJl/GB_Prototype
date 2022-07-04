@@ -112,9 +112,6 @@ public class BaseEnemy : MonoBehaviour
         }
     }
 
-
-
-
     void ShowDamage()
     {
         SoundManager.instance.Play("EnemyHit");

@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
             {
                 HealthBarUIManager.instance.AddHealth();
             }
-            Destroy(item);
+            item.SetActive(false);
+            //Destroy(item);
         }      
     }
 }

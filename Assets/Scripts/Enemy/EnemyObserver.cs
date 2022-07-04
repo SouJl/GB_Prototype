@@ -16,8 +16,8 @@ public class EnemyObserver : MonoBehaviour
             if (HealthBarUIManager.instance.healthCount > 0)
             {
                 HealthBarUIManager.instance.MinusHealth();
-                // other.gameObject.GetComponent<Rigidbody>().AddForce(other.gameObject.transform.position - new Vector3(1f, 0, 1f), ForceMode.Impulse);
                 Destroy(parent);
+                Main.instance.EnemyCount--;
             }
             else
             {

@@ -18,7 +18,7 @@ public class ChaserEnemy : BaseEnemy
     {
         if (player == null) return;
 
-        if (EnemySpawner.IsPlayerIn && enemyAI.enabled)
+        if (enemyAI.enabled)
         {
             enemyAI.SetDestination(player.transform.position);
         }

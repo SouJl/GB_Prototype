@@ -15,6 +15,7 @@ public class DoorController : MonoBehaviour
 {
     public DoorState state;
     public GameObject AnimatorHandler;
+    public Color OnKeyColor;
 
     [NonSerialized]
     public Animator doorAnimator;
@@ -33,7 +34,7 @@ public class DoorController : MonoBehaviour
                 }
             case DoorState.OnKey:
                 {
-                    renderer.material.color = Color.cyan;
+                    renderer.material.color = OnKeyColor;
                     break;
                 }
         }
@@ -64,7 +65,7 @@ public class DoorController : MonoBehaviour
                 }
             case DoorState.OnKey:
                 {
-                    renderer.material.color = Color.cyan;
+                    renderer.material.color = OnKeyColor;
                     break;
                 }
         }
@@ -88,7 +89,7 @@ public class DoorController : MonoBehaviour
                         if (player.keys.Any()) 
                         {
                             UpdateState(DoorState.Default);
-                            player.keys.Clear();
+                            player.keys.RemoveAt(player.keys.Count - 1);
                             SoundManager.instance.Play("Door");
                             doorAnimator.SetBool("IsOpening", true);
                             KeyUIManager.instance.RemoveKey();
