@@ -61,6 +61,7 @@ public class EnemyGunner : BaseEnemy
         animator.SetTrigger("Charge");
         yield return new WaitForSeconds(chargeTime);
 
+        SoundManager.instance.Play("FireLaser");
         Instantiate(laserLine, weaponPos.position, weaponPos.rotation);
 
         yield return new WaitForSeconds(fireRate);

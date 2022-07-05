@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [Header("Set in Inspector")]
     public float turnSpeed = 20f;
     public float speed = 1f;
+    public Transform gunPosition;
+    public Animator leftCaterpillar;
+    public Animator rightCaterpillar;
 
     [Header("Set Dynamically")]
     public List<GameObject> keys;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Vector3 _direction;
     float gravity;
     Vector3 impact = Vector3.zero;
+    Vector3 _lastPos = Vector3.zero;
 
     private void Awake()
     {
@@ -32,6 +36,19 @@ public class PlayerController : MonoBehaviour
         _direction.x = Input.GetAxisRaw("Horizontal");
         _direction.z = Input.GetAxisRaw("Vertical");
         _direction.Normalize();
+
+        if(_direction.magnitude >= 0.1f) 
+        {
+            leftCaterpillar.SetBool("IsMove", true);
+            rightCaterpillar.SetBool("IsMove", true);
+        }
+        else 
+        {
+            leftCaterpillar.SetBool("IsMove", false);
+            rightCaterpillar.SetBool("IsMove", false);
+        }
+
+        _lastPos = transform.position;
 
         gravity -= 9.8f * Time.deltaTime;
         _controller.Move(new Vector3(_direction.x * speed * Time.deltaTime, gravity, _direction.z * speed * Time.deltaTime));
@@ -46,16 +63,16 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-       /* if (_direction.magnitude >= 0.1f) 
+        if (_direction.magnitude >= 0.1f) 
         {
             Vector3 desiredRotation = Vector3.RotateTowards(transform.forward, _direction, turnSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(desiredRotation);     
-        } */
+        }
 
-        Vector2 difference = Camera.main.WorldToScreenPoint(transform.position) - Input.mousePosition;
+        Vector2 difference = Camera.main.WorldToScreenPoint(gunPosition.position) - Input.mousePosition;
         difference.Normalize();
         float rotation = Mathf.Atan2(difference.x, difference.y) * Mathf.Rad2Deg - 180f;
-        transform.rotation = Quaternion.Euler(0f, rotation, 0f);
+        gunPosition.rotation = Quaternion.Euler(0f, rotation, 0f);
     }
 
     public void AddImpact(Vector3 dir, float force) 

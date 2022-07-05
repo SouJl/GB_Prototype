@@ -66,13 +66,18 @@ public class BaseEnemy : MonoBehaviour
 
     public virtual void MoveFixedUpdate() { }
 
-    public virtual void OnHitBomb(GameObject collideGo) 
+    public virtual void OnHitBomb(float damage) 
     {
-        if (collideGo.tag == "Bomb")
+        health -= damage;
+        if (health <= 0) 
         {
             Main.instance.EnemyDefeat(this);
             Instantiate(deathParticalEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
+        else
+        {
+            ShowDamage();
         }
     }
 
@@ -80,7 +85,7 @@ public class BaseEnemy : MonoBehaviour
     {
         if(_rigidBody != null) 
         {
-            ShowDamage();
+            //ShowDamage();
             StartCoroutine(WaitForPhisicsApply());
         }
     }
@@ -113,7 +118,7 @@ public class BaseEnemy : MonoBehaviour
         }
     }
 
-    void ShowDamage()
+    public void ShowDamage()
     {
         SoundManager.instance.Play("EnemyHit");
         foreach (var m in materials)
@@ -124,7 +129,7 @@ public class BaseEnemy : MonoBehaviour
         damageDoneTime = Time.time + showDamageDuration;
     }
 
-    void UnShownDamage()
+    public void UnShownDamage()
     {
         for (int i = 0; i < materials.Length; i++)
         {

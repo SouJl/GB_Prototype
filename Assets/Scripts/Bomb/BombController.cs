@@ -6,17 +6,18 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 {
     public float lifeTime = 10f;
-    [NonSerialized]
-    public bool IsDetonate = false;
+    public GameObject explosion;
+
 
     private void Awake()
     {
         Invoke("BombDestroy", lifeTime);
     }
 
-    private void BombDestroy()
+    public void BombDestroy()
     {
-        IsDetonate = true;
+        Instantiate(explosion, transform.position + new Vector3(0, 0.15f, 0), Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +26,8 @@ public class BombController : MonoBehaviour
         {
             /*var p = other.gameObject.GetComponent<BaseEnemy>();
             p.OnHitBomb(gameObject);*/
-            IsDetonate = true;
+            Instantiate(explosion, transform.position + new Vector3(0, 0.15f, 0), Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

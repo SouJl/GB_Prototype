@@ -48,17 +48,19 @@ public class BossEnemy : BaseEnemy
     }
 
 
-    public override void OnHitBomb(GameObject collideGo)
+    public override void OnHitBomb(float damage)
     {
-        if (collideGo.tag == "Bomb")
+        health -= damage;
+        Main.instance.SetValueInHealthBar((int)health);
+        if (health <= 0)
         {
-            health -= 20;
-            Main.instance.SetValueInHealthBar((int)health);
-            if (health <= 0)
-            {
-                Main.instance.EnemyDefeat(this);
-                Destroy(gameObject);
-            }
+            Instantiate(deathParticalEffect, transform.position, Quaternion.identity);
+            Main.instance.EnemyDefeat(this);
+            Destroy(gameObject);
+        }
+        else 
+        {
+            ShowDamage();
         }
     }
 

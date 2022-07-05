@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4761376220745415345}
+  - component: {fileID: -1430605919597436796}
   m_Layer: 0
   m_Name: PS_BombExplosion
   m_TagString: Untagged
@@ -33,6 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1430605919597436796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112263985050300679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6805e7398b439e34d89d95b68aec2fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 250
+  radius: 5
+  damage: 50
 --- !u!1 &6118340637761626103
 GameObject:
   m_ObjectHideFlags: 0
