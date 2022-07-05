@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 250
   radius: 5
+  explosionEffect: {fileID: 1112263985050300679, guid: ed0ad2305127ea844a91d424e45c009e, type: 3}
 --- !u!114 &7172345549881704356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203487f552018024ab970b3ad0ac4bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDetonate: 0
+  lifeTime: 3
 --- !u!54 &-3296674180745635878
 Rigidbody:
   m_ObjectHideFlags: 0

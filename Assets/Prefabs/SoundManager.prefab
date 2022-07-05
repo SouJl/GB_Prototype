@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: eb5376670219e0c40be7da10134362a5, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -77,6 +77,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlayerHit
     clip: {fileID: 8300000, guid: 69f4ca37b145e994abfc8526e9502041, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FireLaser
+    clip: {fileID: 8300000, guid: 63fe4a9eaaed2644aa0ed42bbd33f388, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BombExplosion
+    clip: {fileID: 8300000, guid: 41ddbf27d57018e4c90aa82304aee51a, type: 3}
     volume: 1
     pitch: 1
     loop: 0

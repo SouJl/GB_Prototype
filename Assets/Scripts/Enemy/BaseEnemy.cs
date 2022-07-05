@@ -71,6 +71,7 @@ public class BaseEnemy : MonoBehaviour
         if (collideGo.tag == "Bomb")
         {
             Main.instance.EnemyDefeat(this);
+            Instantiate(deathParticalEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
