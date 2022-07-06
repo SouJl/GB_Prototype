@@ -29,20 +29,31 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Level" || collision.gameObject.tag == "Door") 
-        {
-            ContactPoint contact = collision.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.forward, contact.normal);
-            Vector3 pos = contact.point;
-            var effect = Instantiate(onHitEffect, pos, rot);
-            Destroy(gameObject);
-        }
 
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
+        switch (collision.gameObject.tag) 
         {
+            default: 
+                break;
+            
+            case "Level":
+            case "Door":
+            case "Turret": 
+                {
+                    ContactPoint contact = collision.contacts[0];
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.forward, contact.normal);
+                    Vector3 pos = contact.point;
+                    var effect = Instantiate(onHitEffect, pos, rot);
+                    Destroy(gameObject);
+                    break;
+                }
 
-            var p = collision.gameObject.GetComponent<BaseEnemy>();
-            p.OnHit(gameObject);
+            case "Enemy":
+            case "Boss":
+                {
+                    var p = collision.gameObject.GetComponent<BaseEnemy>();
+                    p.OnHit(gameObject);
+                    break;
+                }
         }
     }
 

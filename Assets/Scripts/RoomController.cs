@@ -63,12 +63,16 @@ public class RoomController : MonoBehaviour
                             }
                                 
                         }
-                        if(triggeredSpawner.isEnemySpawn)
+                        if (triggeredSpawner.isEnemySpawn) 
+                        {
+                            MinimapZoom.instance.ZoomOut();
                             _battleState = BattleState.onFight;
+                        }
+ 
                         break;
                     }
                 case BattleState.onFight:
-                    {
+                    {                  
                         if (Main.instance.EnemyCount == 0)
                         {
                             foreach (var door in Doors)
@@ -83,6 +87,9 @@ public class RoomController : MonoBehaviour
                     }
                 case BattleState.fightEnd:
                     {
+                        MinimapZoom.instance.ZoomIn();
+                        _spawners = null;
+                        _battleState = BattleState.none;
                         break;
                     }
             }

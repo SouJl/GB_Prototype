@@ -12,7 +12,10 @@ public class KeyController : MonoBehaviour
         int children = transform.childCount;
         for (int i = 0; i < children - 1; ++i)
         {
-            transform.GetChild(i).GetComponent<Renderer>().material.color = keyColor;
+            if (transform.GetChild(i).TryGetComponent(out Renderer matRender))
+            {
+                matRender.material.color = keyColor;
+            }
         }
     }
 

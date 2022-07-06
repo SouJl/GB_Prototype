@@ -26,22 +26,38 @@ public class Laser : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+
+        switch (collision.gameObject.tag)
         {
-            var p = collision.gameObject.GetComponent<PlayerController>();
-            if (!p.IsForceAdded)
-            {
-                if (HealthBarUIManager.instance.healthCount > 0)
+            default:
+                break;
+
+            case "Level":
+            case "Door":
+            case "Turret":
                 {
-                    HealthBarUIManager.instance.MinusHealth();
+                    Destroy(gameObject);
+                    break;
                 }
-                else
+
+            case "Player":
                 {
-                    Destroy(collision.gameObject);
-                    Main.instance.GameOver(false);
+                    var p = collision.gameObject.GetComponent<PlayerController>();
+                    if (!p.IsForceAdded)
+                    {
+                        if (HealthBarUIManager.instance.healthCount > 0)
+                        {
+                            HealthBarUIManager.instance.MinusHealth();
+                        }
+                        else
+                        {
+                            Destroy(collision.gameObject);
+                            Main.instance.GameOver(false);
+                        }
+                    }
+                    Destroy(gameObject);
+                    break;
                 }
-            }
-            Destroy(gameObject);
         }
     }
 }

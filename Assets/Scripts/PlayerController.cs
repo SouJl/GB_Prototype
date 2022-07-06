@@ -65,8 +65,10 @@ public class PlayerController : MonoBehaviour
 
         if (_direction.magnitude >= 0.1f) 
         {
+   
             Vector3 desiredRotation = Vector3.RotateTowards(transform.forward, _direction, turnSpeed * Time.deltaTime, 0f);
-            transform.rotation = Quaternion.LookRotation(desiredRotation);     
+           // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredRotation), 0.1f);
+            transform.rotation = Quaternion.LookRotation(desiredRotation); 
         }
 
         Vector2 difference = Camera.main.WorldToScreenPoint(gunPosition.position) - Input.mousePosition;

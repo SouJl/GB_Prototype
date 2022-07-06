@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
         isEnemySpawn = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (IsActive)
         {

@@ -12,6 +12,7 @@ TagManager:
   - Door
   - Bomb
   - Boss
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - Player
   - Level
-  - 
+  - MiniMap
   - 
   - 
   - 
