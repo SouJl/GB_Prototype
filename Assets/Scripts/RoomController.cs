@@ -10,11 +10,20 @@ public enum BattleState
     fightEnd
 }
 
+[System.Serializable]
+public class PickUpItem
+{
+    public GameObject prefub;
+    public Transform location;
+}
+
 public class RoomController : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public List<GameObject> Doors;
     public List<GameObject> SpawnerGo;
+    [NonReorderable]
+    public List<PickUpItem> pickUpItems;
 
     [Header("Set Dynamically")]
     public BattleState _battleState;
@@ -90,6 +99,10 @@ public class RoomController : MonoBehaviour
                         MinimapZoom.instance.ZoomIn();
                         _spawners = null;
                         _battleState = BattleState.none;
+                        foreach(var item in pickUpItems) 
+                        {
+                            Instantiate(item.prefub, item.location.position, Quaternion.identity);
+                        }
                         break;
                     }
             }

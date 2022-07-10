@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class SceneOrder
@@ -31,11 +32,9 @@ public class Main : MonoBehaviour
 
 
     private int _score = 0;
-    private string _notificationMessage;
-    private float _musicVolume = 0.5f;
-    private float _sfxVolume = 0.8f;
-
     private int _enemyCount = 0;
+    
+    private string _notificationMessage;
 
     public int EnemyCount
     {
@@ -74,6 +73,8 @@ public class Main : MonoBehaviour
             playerPosition = go.transform;
         }
 
+        ResetAudiLisner();
+
         //Cursor.visible = false;
     }
 
@@ -83,8 +84,14 @@ public class Main : MonoBehaviour
 
         _notificationMessage = "";
         _score = 0;
+
+        if (PlayerPrefs.HasKey("Score"))
+        {
+            _score = PlayerPrefs.GetInt("Score");
+        }
+        PlayerPrefs.SetInt("Score", _score);
+
         UpdateGUI();
-        SetGameSettings();
 
         SoundManager.instance.Play("Theme");
     }
@@ -93,6 +100,12 @@ public class Main : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void ResetAudiLisner()
+    {
+        bool isActive = gameObject.GetComponent<AudioListener>().enabled;
+        gameObject.GetComponent<AudioListener>().enabled = !isActive;
     }
 
     public void InitSliderHealthBar(int health)
@@ -118,21 +131,24 @@ public class Main : MonoBehaviour
         UpdateGUI();
     }
 
-    public void ThrowNotification(string message)
+    public void ThrowNotification(string message, bool isDisable = false)
     {
         _notificationMessage = message;
         UpdateGUI();
+        Invoke("DisabeNotification", 1.5f);
     }
 
     public void GameOver(bool isWon)
     {
         if (isWon)
         {
+            PlayerPrefs.SetInt("Score", _score);
             _notificationMessage = "Поздравляю! Уровень пройден!";
             Invoke("NextLevel", 3);
         }
         else
         {
+            ResetAudiLisner();
             _notificationMessage = "Вы проиграли!";
             Invoke("Restart", 3);
         }
@@ -141,7 +157,7 @@ public class Main : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(sceneOrder.CurrentScene);
+        LevelLoader.Instance.LoadScene(sceneOrder.CurrentScene);
     }
 
     private void UpdateGUI()
@@ -152,27 +168,12 @@ public class Main : MonoBehaviour
 
     private void NextLevel()
     {
-        SceneManager.LoadScene(sceneOrder.NextScene);
+        LevelLoader.Instance.LoadScene(sceneOrder.NextScene);
     }
 
-    private void SetGameSettings()
+    private void DisabeNotification() 
     {
-        if (PlayerPrefs.HasKey("MusicVolume"))
-        {
-            _musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        }
-
-        if (PlayerPrefs.HasKey("SFXVolume"))
-        {
-            _sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
-        }
-
-        SoundManager.instance.SetVolume("Theme", _musicVolume);
-
-        SoundManager.instance.SetVolume("Bullet", _sfxVolume);
-        SoundManager.instance.SetVolume("Door", _sfxVolume);
-        SoundManager.instance.SetVolume("EnemyHit", _sfxVolume * 0.8f);
-        SoundManager.instance.SetVolume("PlayerHit", _sfxVolume);
+        _notificationMessage = "";
+        notification.text = _notificationMessage;
     }
-
 }

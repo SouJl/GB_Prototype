@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class SoundManager : MonoBehaviour
     public List<Sound> sounds;
 
     public static SoundManager instance;
+
+
 
     void Awake()
     {
@@ -26,9 +29,17 @@ public class SoundManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
+            s.source.outputAudioMixerGroup = s.audioMixer;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.spatialBlend = s.SpatialBlend;
+            s.source.reverbZoneMix = s.reverZoneMix;
+            s.source.dopplerLevel = s.dopplerLevel;
+            s.source.spread = s.spread;
+            s.source.rolloffMode = s.RolloffMode;
+            s.source.minDistance = s.minDistance;
+            s.source.maxDistance = s.MaxDistance;
         }
     }
 
@@ -65,6 +76,13 @@ public class SoundManager : MonoBehaviour
         Sound sound = sounds.Find(s => s.name == name);
         if (sound == null) return;
         sound.source.volume = volume;
+    }
+
+    public float GetVolume(string name)
+    {
+        Sound sound = sounds.Find(s => s.name == name);
+        if (sound == null) return -1;
+        return sound.source.volume;
     }
 
     public bool IsSoundOn(string name)

@@ -29,7 +29,9 @@ public class Weapon : MonoBehaviour
     {
         allowFire = false;
         var go = Instantiate(bulletPrefub, firePoint.position, firePoint.rotation);
-        go.GetComponent<Bullet>().playerRotation = transform.rotation; 
+        go.GetComponent<Bullet>().playerRotation = transform.rotation;
+        go.GetComponent<Bullet>().damage = FindObjectOfType<PlayerController>().damage;
+        
         yield return new WaitForSeconds(fireRate);
         allowFire = true;
     }

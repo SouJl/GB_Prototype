@@ -8,7 +8,12 @@ public class MenuManager : MonoBehaviour
     public void OnPlay() 
     {
         SoundManager.instance.Play("ButtonClick");
-        SceneManager.LoadScene("Level1");
+        LevelLoader.Instance.LoadScene("Level1", true);
+    }
+
+    public void OnOptions()
+    {
+        SoundManager.instance.Play("ButtonClick");
     }
 
     public void OnExit() 

@@ -5125,6 +5125,7 @@ GameObject:
   - component: {fileID: 7954204475578414231}
   - component: {fileID: 7954204474710600153}
   - component: {fileID: 56115988869842902}
+  - component: {fileID: -4084319351575631618}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -5197,6 +5198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeed: 20
   speed: 6
+  damage: 5
   gunPosition: {fileID: 3663875834754547929}
   leftCaterpillar: {fileID: 1607789860723283728}
   rightCaterpillar: {fileID: 7211278211166766319}
@@ -5230,6 +5232,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefub: {fileID: 6707488090433165627, guid: 15c9cb4752c4b6147bd3f6737e4232ba, type: 3}
+--- !u!81 &-4084319351575631618
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7954204475578414313}
+  m_Enabled: 1
 --- !u!1 &8206537849384424754
 GameObject:
   m_ObjectHideFlags: 0

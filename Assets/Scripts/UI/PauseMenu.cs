@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour
 
     private bool _isEnable;
 
+    private float prevThemeVolume;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -29,9 +31,13 @@ public class PauseMenu : MonoBehaviour
     {
         _isEnable = !_isEnable;
 
-
+     
         if (_isEnable)
         {
+            float prvlm = SoundManager.instance.GetVolume("Theme");
+            if (prvlm != -1) prevThemeVolume = prvlm;
+
+            SoundManager.instance.SetVolume("Theme", 0.1f);
             Time.timeScale = 0f;
             _pauseMenu.gameObject.SetActive(true);
             if (exitState) 
@@ -42,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.SetVolume("Theme", prevThemeVolume);
             Time.timeScale = 1f;
             _pauseMenu.gameObject.SetActive(false);
             if (exitState) 
@@ -58,12 +65,20 @@ public class PauseMenu : MonoBehaviour
         SoundManager.instance.Play("ButtonClick");
     }
 
+    public void OnRestart() 
+    {
+        SoundManager.instance.Play("ButtonClick");
+        SoundManager.instance.Stop("Theme");
+        SetPause(false);
+        LevelLoader.Instance.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void OnMainMenu()
     {
         SoundManager.instance.Play("ButtonClick");
         SoundManager.instance.Stop("Theme");
         SetPause(false);
-        SceneManager.LoadScene("Menu");
+        LevelLoader.Instance.LoadScene("Menu");
     }
 
     public void OnGameQuit()

@@ -7,12 +7,13 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
     public float lifeTime = 3f;
-    public float damage = 5f;
+   
     public ParticleSystem onHitEffect;
 
     [NonSerialized]
     public Quaternion playerRotation;
-
+    [NonSerialized]
+    public float damage;
 
     Rigidbody _rigidbody;
 

@@ -13,7 +13,6 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
-
         if (PlayerPrefs.HasKey("MusicVolume"))
         {
             _musicVolume = PlayerPrefs.GetFloat("MusicVolume");
@@ -30,9 +29,8 @@ public class OptionsMenu : MonoBehaviour
         sfxVolumeSlider.value = _sfxVolume;
     }
 
-    public void CloseOpionsMenu()
+    public void OnBack()
     {
-        PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
-        PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
+        SoundManager.instance.Play("ButtonClick");
     }
 }

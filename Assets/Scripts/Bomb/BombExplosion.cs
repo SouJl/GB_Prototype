@@ -8,14 +8,18 @@ public class BombExplosion : MonoBehaviour
     public float radius = 10f;
     public float damage = 20f;
 
+    private new AudioSource audio;
+
     private void Awake()
     {
+        audio = gameObject.GetComponent<AudioSource>();
         StartCoroutine(Explosion());
     }
 
     IEnumerator Explosion()
     {
-        SoundManager.instance.Play("BombExplosion");
+        //SoundManager.instance.Play("BombExplosion");
+        //audio.Play();
         yield return new WaitForSeconds(0.5f);
         
         var colliders = Physics.OverlapSphere(transform.position, radius);

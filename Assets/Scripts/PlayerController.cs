@@ -7,7 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public float turnSpeed = 20f;
+    
     public float speed = 1f;
+    public float damage = 5f;
+
     public Transform gunPosition;
     public Animator leftCaterpillar;
     public Animator rightCaterpillar;
@@ -89,14 +92,43 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F)) 
         {
-            if (item.tag == "Key")
+            var pitm = item.GetComponent<BaseItemController>();
+            switch (pitm.itemType) 
             {
-                keys.Add(item);
-                KeyUIManager.instance.AddKey(item.transform.GetChild(0).GetComponent<Renderer>().material.color);
-            }
-            if (item.tag == "Health")
-            {
-                HealthBarUIManager.instance.AddHealth();
+                case ItemType.key:
+                    {
+                        keys.Add(item);
+                        KeyUIManager.instance.AddKey(item.transform.GetChild(0).GetComponent<Renderer>().material.color);
+                        SoundManager.instance.Play("PickUp");
+                        break;
+                    }
+                case ItemType.health:
+                    {
+                        HealthBarUIManager.instance.AddHealth();
+                        SoundManager.instance.Play("PickUp");
+                        break;
+                    }
+                case ItemType.powerUp:
+                    {
+                        var power = pitm as PowerUpController;
+                        switch (power.powerUp) 
+                        {
+                            case PowerUpType.damage: 
+                                {
+                                    damage *= 2f;
+                                    Main.instance.ThrowNotification("Урон увеличен в 2 раза", true);
+                                    break;
+                                }
+                            case PowerUpType.speed:
+                                {
+                                    speed *= 2f;
+                                    Main.instance.ThrowNotification("Скорость увеличена в 2 раза", true);
+                                    break;
+                                }
+                        }
+                        SoundManager.instance.Play("PoweUp");
+                        break;
+                    }
             }
             item.SetActive(false);
             //Destroy(item);
